@@ -9,7 +9,7 @@ export interface IChapter extends Document {
   isFree: boolean;
   muxData?: Schema.Types.ObjectId;
   courseId: Schema.Types.ObjectId;
-  course: Schema.Types.ObjectId;
+  // course: Schema.Types.ObjectId;
   userProgress: Schema.Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
@@ -24,7 +24,7 @@ const ChapterSchema = new Schema({
   isFree: { type: Boolean, default: false },
   muxData: { type: Schema.Types.ObjectId, ref: "MuxData" },
   courseId: { type: Schema.Types.ObjectId, ref: "Course", required: true },
-  course: { type: Schema.Types.ObjectId, ref: "Course", required: true },
+  // course: { type: Schema.Types.ObjectId, ref: "Course", required: true },
   userProgress: [{ type: Schema.Types.ObjectId, ref: "UserProgress" }],
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },

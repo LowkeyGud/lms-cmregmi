@@ -3,7 +3,7 @@ import mongoose, { Schema, Document, models, model } from "mongoose";
 export interface IPurchase extends Document {
   userId: string;
   courseId: Schema.Types.ObjectId;
-  course: Schema.Types.ObjectId;
+  // course: Schema.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -11,7 +11,7 @@ export interface IPurchase extends Document {
 const PurchaseSchema = new Schema({
   userId: { type: String, required: true },
   courseId: { type: Schema.Types.ObjectId, ref: "Course", required: true },
-  course: { type: Schema.Types.ObjectId, ref: "Course", required: true },
+  // course: { type: Schema.Types.ObjectId, ref: "Course", required: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 },
