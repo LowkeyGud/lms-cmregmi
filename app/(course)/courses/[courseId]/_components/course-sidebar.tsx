@@ -3,6 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Purchase from "@/database/purchase.modal";
 import { CourseSidebarItem } from "./course-sidebar-item";
+import { connectToDatabase } from "@/lib/mongoose";
 
 interface CourseSidebarProps {
     course: any
@@ -19,9 +20,11 @@ export const CourseSidebar = async ({
         return redirect("/");
     }
 
+
+    connectToDatabase();
     const purchase = await Purchase.findOne({
         userId,
-        courseId: course.id,
+        courseId: course._id,
     });
 
     return (
