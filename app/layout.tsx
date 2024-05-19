@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ToastProvider } from "@/components/providers/taoster-provider";
+import { ConfettiProvider } from "@/components/providers/confetti-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,14 +14,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{ 
+}: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <ToastProvider/>
+          <ConfettiProvider />
+          <ToastProvider />
           {children}</body>
       </html>
     </ClerkProvider>
