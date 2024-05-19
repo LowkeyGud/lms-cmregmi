@@ -8,3 +8,15 @@ export type SafeProfile = Omit<Profile, "createdAt" | "updatedAt"> & {
   createdAt: string;
   updatedAt: string;
 };
+
+export type GetCourses = {
+  userId: string;
+  title?: string | "";
+  categoryId?: string;
+};
+
+export interface GetChapterProps {
+  userId: string;
+  courseId: string;
+  chapterId: string;
+}

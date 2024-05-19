@@ -2,10 +2,10 @@
 import { getCourseWithChaptersAndProgress } from "@/lib/actions/course.action";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import getSafeProfile from "@/actions/get-safe-profile";
 import { CourseNavbar } from "./_components/course-navbar";
 import { CourseSidebar } from "./_components/course-sidebar";
-import { getProgress } from "@/actions/get-progress";
+import { getProgress } from "@/lib/actions/progress.action";
+import getSafeProfile from "@/lib/actions/safe-profile.action";
 
 const CourseLayout = async ({
     children,
@@ -14,28 +14,25 @@ const CourseLayout = async ({
     children: React.ReactNode;
     params: { courseId: string };
 }) => {
-    console.log("55555");
-    console.log(params.courseId);
 
     const { userId } = auth();
     if (!userId) {
         return redirect("/")
     }
-    console.log(userId);
 
     const safeProfile = await getSafeProfile();
-    console.log(safeProfile);
 
     // if (!safeProfile) {
     //     return redirect("/");
     // }
 
-
-
+    console.log("4444");
     console.log(params.courseId);
+    console.log(userId);
+
+
+
     const course = await getCourseWithChaptersAndProgress(params.courseId, userId);
-
-
 
     if (!course) {
         return redirect("/");

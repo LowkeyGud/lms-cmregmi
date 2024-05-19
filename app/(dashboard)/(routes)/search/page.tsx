@@ -4,8 +4,8 @@ import Category from "@/database/category.modal";
 import { auth } from "@clerk/nextjs/server";
 import { connectToDatabase } from "@/lib/mongoose";
 import { SearchInput } from "@/components/search-input";
-import { getCourses } from "@/actions/get-courses";
 import { CoursesList } from "@/components/courses-list";
+import { getCourses } from "@/lib/actions/course.action";
 
 // import { SearchInput } from "@/components/search-input";
 // import { getCourses } from "@/actions/get-courses";
