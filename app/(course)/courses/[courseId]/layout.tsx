@@ -25,13 +25,7 @@ const CourseLayout = async ({
     // if (!safeProfile) {
     //     return redirect("/");
     // }
-
-    console.log("4444");
-    console.log(params.courseId);
-    console.log(userId);
-
-
-
+    
     const course = await getCourseWithChaptersAndProgress(params.courseId, userId);
 
     if (!course) {

@@ -9,11 +9,6 @@ const CourseIdPage = async ({
 }) => {
     const course = await getCourseWithPublishedChapters(params.courseId)
 
-    console.log("333");
-
-    console.log(course);
-
-
     if (!course) {
         return redirect("/");
     }

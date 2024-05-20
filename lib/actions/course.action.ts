@@ -81,10 +81,6 @@ export async function getCourseWithChaptersAndProgress(
 ) {
   try {
     connectToDatabase();
-    console.log("55555");
-
-    console.log(courseId);
-
     // Fetch the course by ID
     const course = await Course.findById(courseId);
     if (!course) {

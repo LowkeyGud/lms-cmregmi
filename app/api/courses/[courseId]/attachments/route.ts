@@ -13,7 +13,6 @@ export async function POST(
     const { userId } = auth();
     const { url, originalFilename } = await req.json();
 
-    console.log("COURSE_ID_ATTACHMENTS", url, params.courseId);
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }

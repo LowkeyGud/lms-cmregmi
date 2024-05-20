@@ -22,7 +22,6 @@ import { Input } from "@/components/ui/input";
 import { NewList } from "./new-list";
 import { ChapterList } from "./chapter-list";
 import DragDrop from "./dnd-kit";
-import Trash from "./trash";
 
 interface ChaptersFormProps {
     initialData: any;
@@ -52,9 +51,6 @@ export const ChaptersForm = ({
             title: "",
         },
     });
-
-    console.log(initialData);
-
 
     const { isSubmitting, isValid } = form.formState;
 
