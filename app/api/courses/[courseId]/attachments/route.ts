@@ -1,5 +1,6 @@
 import Attachment from "@/database/attachment.modal";
 import Course from "@/database/course.modal";
+import { connectToDatabase } from "@/lib/mongoose";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
@@ -8,6 +9,7 @@ export async function POST(
   { params }: { params: { courseId: string } }
 ) {
   try {
+    connectToDatabase();
     const { userId } = auth();
     const { url, originalFilename } = await req.json();
 

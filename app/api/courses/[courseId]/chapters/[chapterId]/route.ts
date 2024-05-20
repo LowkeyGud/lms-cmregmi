@@ -5,6 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import Course from "@/database/course.modal";
 import Chapter from "@/database/chapter.modal";
 import MuxData from "@/database/muxdata.modal";
+import { connectToDatabase } from "@/lib/mongoose";
 
 const { video } = new Mux({
   tokenId: process.env.MUX_TOKEN_ID,
@@ -22,6 +23,7 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    connectToDatabase();
     const course = await Course.findOne({
       _id: params.courseId,
       userId,
@@ -56,6 +58,7 @@ export async function PATCH(
   { params }: { params: { courseId: string; chapterId: string } }
 ) {
   try {
+    connectToDatabase();
     const { userId } = auth();
     const { isPublished, ...values } = await req.json();
 

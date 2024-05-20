@@ -1,5 +1,6 @@
 import Chapter from "@/database/chapter.modal";
 import Course from "@/database/course.modal";
+import { connectToDatabase } from "@/lib/mongoose";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
@@ -14,6 +15,7 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    connectToDatabase();
     const ownCourse = await Course.findOne({ _id: params.courseId, userId });
 
     if (!ownCourse) {

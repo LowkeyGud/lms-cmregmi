@@ -2,6 +2,7 @@ import Profile from "@/database/profile.modal";
 import { SafeProfile } from "@/types/indes";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { connectToDatabase } from "../mongoose";
 
 export default async function getSafeProfile() {
   try {
@@ -11,6 +12,7 @@ export default async function getSafeProfile() {
       return redirect("/");
     }
 
+    connectToDatabase();
     const currentProfile = await Profile.findOne(
       { userId },
       {

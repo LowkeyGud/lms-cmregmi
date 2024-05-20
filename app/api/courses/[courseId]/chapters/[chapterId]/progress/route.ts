@@ -1,4 +1,5 @@
 import UserProgress from "@/database/userprogress.modal";
+import { connectToDatabase } from "@/lib/mongoose";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
@@ -13,7 +14,7 @@ export async function PUT(
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-
+    connectToDatabase();
     const userProgress = await UserProgress.findOneAndUpdate(
       {
         userId,

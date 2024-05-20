@@ -32,7 +32,6 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   }
 
   connectToDatabase();
-
   const course = await Course.findOne({ _id: params.courseId, userId });
 
   const attachments = await Attachment.find({ courseId: course._id })

@@ -5,6 +5,7 @@ import MuxData from "@/database/muxdata.modal";
 import Purchase from "@/database/purchase.modal";
 import UserProgress from "@/database/userprogress.modal";
 import { GetChapterProps } from "@/types/indes";
+import { connectToDatabase } from "../mongoose";
 
 export const getChapter = async ({
   userId,
@@ -12,6 +13,7 @@ export const getChapter = async ({
   chapterId,
 }: GetChapterProps) => {
   try {
+    connectToDatabase();
     // Fetch purchase
     const purchase = await Purchase.findOne({
       userId,

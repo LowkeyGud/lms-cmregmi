@@ -5,6 +5,7 @@ import { stripe } from "@/lib/stripe";
 import Course from "@/database/course.modal";
 import Purchase from "@/database/purchase.modal";
 import StripeCustomer from "@/database/stripecustomer.modal";
+import { connectToDatabase } from "@/lib/mongoose";
 
 export async function POST(
   req: Request,
@@ -17,6 +18,7 @@ export async function POST(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    connectToDatabase();
     const course = await Course.findOne({
       _id: params.courseId,
       isPublished: true,

@@ -18,6 +18,7 @@ import { ChapterVideoForm } from "./_components/chapter-video-form";
 import MuxData from "@/database/muxdata.modal";
 import { Banner } from "@/components/banner";
 import { ChapterActions } from "./_components/chapter-actions";
+import { connectToDatabase } from "@/lib/mongoose";
 
 interface ChapterIdPageProps {
     params: {
@@ -35,6 +36,7 @@ const ChapterIdPage: React.FC<ChapterIdPageProps> = async ({ params }) => {
     }
 
     // Find the chapter by chapterId and courseId
+    connectToDatabase()
     const chapter = await Chapter.findOne({ _id: chapterId, courseId });
 
     if (!chapter) {

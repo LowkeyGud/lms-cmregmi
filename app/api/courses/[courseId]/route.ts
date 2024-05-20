@@ -72,6 +72,7 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    connectToDatabase();
     const course = await Course.findOne({
       _id: params.courseId,
       userId,
