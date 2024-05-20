@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { VideoPlayer } from "./_components/video-player";
 import { CourseEnrollButton } from "./_components/course-enroll-button";
 import { Separator } from "@/components/ui/separator";
+import { CourseProgressButton } from "./_components/course-progress-button";
 
 const ChapterIdPage = async ({
   params
@@ -60,7 +61,7 @@ const ChapterIdPage = async ({
             chapterId={params.chapterId}
             title={chapter.title}
             courseId={params.courseId}
-            nextChapterId={nextChapter?.id}
+            nextChapterId={nextChapter?._id}
             playbackId={muxData?.playbackId!}
             isLocked={isLocked}
             completeOnEnd={completeOnEnd}
@@ -72,13 +73,12 @@ const ChapterIdPage = async ({
               {chapter.title}
             </h2>
             {purchase ? (
-              <div></div>
-              // <CourseProgressButton
-              //   chapterId={params.chapterId}
-              //   courseId={params.courseId}
-              //   nextChapterId={nextChapter?.id}
-              //   isCompleted={!!userProgress?.isCompleted}
-              // />
+              <CourseProgressButton
+                chapterId={params.chapterId}
+                courseId={params.courseId}
+                nextChapterId={nextChapter?._id}
+                isCompleted={!!userProgress?.isCompleted}
+              />
             ) : (
               <CourseEnrollButton
                 courseId={params.courseId}

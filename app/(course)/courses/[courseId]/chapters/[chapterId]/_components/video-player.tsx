@@ -18,7 +18,7 @@ interface VideoPlayerProps {
     isLocked: boolean;
     completeOnEnd: boolean;
     title: string;
-  }
+}
 
 export const VideoPlayer = ({
     playbackId,
@@ -45,11 +45,12 @@ export const VideoPlayer = ({
                 }
 
                 toast.success("Progress updated");
-                router.refresh();
 
                 if (nextChapterId) {
                     router.push(`/courses/${courseId}/chapters/${nextChapterId}`)
                 }
+                router.refresh();
+
             }
         } catch {
             toast.error("Something went wrong");
