@@ -29,7 +29,7 @@ export async function POST(
       .sort({ position: -1 }) // Sort by position in descending order
       .exec();
 
-    const newPosition = lastChapter ? lastChapter.position + 1 : 1;
+    const newPosition = lastChapter ? lastChapter.position + 1 : 0;
 
     const chapter = new Chapter({
       title,
