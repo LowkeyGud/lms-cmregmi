@@ -27,7 +27,7 @@ interface PriceFormProps {
 };
 
 const formSchema = z.object({
-    price: z.coerce.number(),
+    price: z.coerce.number().max(10000),
 });
 
 export default function PriceForm({
@@ -102,7 +102,7 @@ export default function PriceForm({
                                             type="number"
                                             step="0.01"
                                             disabled={isSubmitting}
-                                            placeholder="Set a price for your course"
+                                            placeholder="Set a price for your course( <10,000)"
                                             {...field}
                                         />
                                     </FormControl>

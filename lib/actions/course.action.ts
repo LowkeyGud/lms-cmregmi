@@ -4,7 +4,7 @@ import Chapter from "@/database/chapter.modal";
 import Course from "@/database/course.modal";
 import UserProgress from "@/database/userprogress.modal";
 import { connectToDatabase } from "../mongoose";
-import { GetCourses } from "@/types/indes";
+import { CourseWithProgressWithCategory, GetCourses } from "@/types/indes";
 import Category from "@/database/category.modal";
 import Purchase from "@/database/purchase.modal";
 import { getProgress } from "./progress.action";
@@ -137,7 +137,7 @@ export async function getCourseWithPublishedChapters(courseId: string) {
       courseId,
       isPublished: true,
     }).sort({ position: "asc" });
-
+    // TODO: Change every database fetch to this toObject()
     return {
       ...course.toObject(),
       chapters: chapters.map((chapter) => chapter.toObject()),
@@ -147,3 +147,66 @@ export async function getCourseWithPublishedChapters(courseId: string) {
     throw error;
   }
 }
+
+type DashboardCourses = {
+  completedCourses: any[];
+  coursesInProgress: any[];
+};
+
+export const getDashboardCourses = async (
+  userId: string
+): Promise<DashboardCourses> => {
+  try {
+    connectToDatabase();
+    const purchasedCourses = await Purchase.find({ userId }).exec();
+
+    const coursesWithDetails: CourseWithProgressWithCategory[] = [];
+
+    for (const purchase of purchasedCourses) {
+      // Fetch course details
+      const course = await Course.findById(purchase.courseId).exec();
+      if (!course) continue;
+
+      // Fetch category details
+      const category = await Category.findById(course.categoryId).exec();
+      if (!category) continue;
+
+      // Fetch published chapters
+      const chapters = await Chapter.find({
+        courseId: course._id,
+        isPublished: true,
+      })
+        .sort({ position: "asc" })
+        .exec();
+
+      // Calculate progress
+      const progress = await getProgress(userId, course._id.toString());
+
+      coursesWithDetails.push({
+        ...course.toObject(),
+        category: category.toObject(),
+        chapters: chapters.map((chapter) => chapter.toObject()),
+        progress,
+      });
+    }
+
+    // Filter courses into completed and in-progress
+    const completedCourses = coursesWithDetails.filter(
+      (course) => course.progress === 100
+    );
+    const coursesInProgress = coursesWithDetails.filter(
+      (course) => course.progress !== 100
+    );
+
+    return {
+      completedCourses,
+      coursesInProgress,
+    };
+  } catch (error) {
+    console.log("[GET_DASHBOARD_COURSES]: ", error);
+    return {
+      completedCourses: [],
+      coursesInProgress: [],
+    };
+  }
+};
