@@ -28,18 +28,18 @@ const teacherRoutes = [
         label: "Analytics",
         href: "/teacher/analytics",
     },
-    {
-        icon: Users,
-        label: "Manage Users",
-        href: "/teacher/users",
-    }
+    // {
+    //     icon: Users,
+    //     label: "Manage Users",
+    //     href: "/teacher/users",
+    // }
 ]
 
 
 export const SidebarRoutes = () => {
 
     const pathname = usePathname();
-    
+
     const isTeacherPage = pathname?.startsWith("/teacher");
 
     const routes = isTeacherPage ? teacherRoutes : STUDENTRoutes;
@@ -47,13 +47,13 @@ export const SidebarRoutes = () => {
     return (
         <div className="flex flex-col w-full">
             {routes.map((route, index) => (
-                <SidebarItem 
+                <SidebarItem
                     key={index}
                     icon={route.icon}
                     label={route.label}
                     href={route.href}
                 />
-            ))}            
+            ))}
         </div>
     )
 }
