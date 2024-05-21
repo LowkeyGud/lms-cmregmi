@@ -103,15 +103,8 @@ export const ChapterList = ({
                                                             Free
                                                         </Badge>
                                                     )}
-                                                    <Badge
-                                                        className={`bg-gray-500
-                                                ${chapter.isPublished && "bg-sky-700"}
-                                                dark:bg-slate-500
-                                                dark:${chapter.isPublished && "bg-sky-700"}
-                                                `}
-                                                    >
-                                                        {chapter.isPublished ? "Published" : "Draft"}
-                                                    </Badge>
+                                                    {chapter.isPublished ? <Badge>Published</Badge> : <Badge variant="inactive">Draft</Badge>}
+
                                                     <Pencil
                                                         onClick={() => onEdit(chapter._id)}
                                                         className="w-4 h-4 cursor-pointer hover:opacity-75 transition"

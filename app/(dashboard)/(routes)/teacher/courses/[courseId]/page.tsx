@@ -82,7 +82,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-y-2">
               <h1 className="text-2xl font-medium">Course setup</h1>
-              <span className="text-sm text-slate-700">
+              <span className="text-sm text-purple-800 dark:text-purple-400">
                 Complete all fields {completionText}
               </span>
             </div>
@@ -114,7 +114,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
               <div>
                 <div className="flex items-center gap-x-2">
                   <IconBadge icon={ListChecks} />
-                  <h2 className="text-xl">Course chapters DnD not working</h2>
+                  <h2 className="text-xl">Course chapters</h2>
                 </div>
                 <ChaptersForm
                   initialData={chapters}

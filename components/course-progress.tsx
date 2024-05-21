@@ -8,8 +8,8 @@ interface CourseProgressProps {
 };
 
 const colorByVariant = {
-  default: "text-sky-700",
-  success: "text-emerald-700",
+  default: "text-red-500",
+  success: "text-transparent bg-clip-text bg-gradient-to-r from-red-800 to-purple-800 dark:from-red-400 dark:to-purple-400",
 }
 
 const sizeByVariant = {

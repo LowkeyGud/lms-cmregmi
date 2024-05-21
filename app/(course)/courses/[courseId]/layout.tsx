@@ -6,6 +6,7 @@ import { CourseNavbar } from "./_components/course-navbar";
 import { CourseSidebar } from "./_components/course-sidebar";
 import { getProgress } from "@/lib/actions/progress.action";
 import getSafeProfile from "@/lib/actions/safe-profile.action";
+import { ModeToggle } from "@/components/ui/toggle-mode";
 
 const CourseLayout = async ({
     children,
@@ -25,7 +26,7 @@ const CourseLayout = async ({
     // if (!safeProfile) {
     //     return redirect("/");
     // }
-    
+
     const course = await getCourseWithChaptersAndProgress(params.courseId, userId);
 
     if (!course) {

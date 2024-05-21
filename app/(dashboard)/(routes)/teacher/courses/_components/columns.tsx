@@ -70,15 +70,11 @@ export const columns: ColumnDef<any>[] = [
         cell: ({ row }) => {
             const isPublished = row.getValue("isPublished") || false;
 
-            return (
-                <Badge className={cn(
-                    "bg-slate-500",
-                    isPublished && "bg-sky-700"
-                )}>
-                    {isPublished ? "Published" : "Draft"}
-                </Badge>
-            )
+            return isPublished ? <Badge>Published</Badge>
+                : <Badge variant="inactive">Draft</Badge>
         }
+
+
     },
     {
         id: "actions",

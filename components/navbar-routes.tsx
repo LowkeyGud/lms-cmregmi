@@ -7,6 +7,7 @@ import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { SearchInput } from "./search-input";
 import { SafeProfile } from "@/types/indes";
+import { ModeToggle } from "./ui/toggle-mode";
 
 interface NavbarRoutesProps {
   currentProfile?: SafeProfile | null
@@ -30,6 +31,7 @@ export const NavbarRoutes: React.FC<NavbarRoutesProps> = ({
         </div>
       )}
       <div className="flex gap-x-2 ml-auto">
+        <ModeToggle />
         {isTeacherPage || isPlayerPage ? (
           <Link href="/">
             <Button variant="destructive">

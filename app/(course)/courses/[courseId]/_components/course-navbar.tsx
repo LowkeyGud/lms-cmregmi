@@ -27,14 +27,14 @@ export const CourseNavbar = ({
       <div className="flex gap-3">
         <Link href="/">
           <Button variant="outline">
-            Go to dashboard
+            Dashboard
           </Button>
         </Link>
-        <Link href={`${process.env.NEXT_PUBLIC_APP_URL}/search`}>
+        {/* <Link href={`${process.env.NEXT_PUBLIC_APP_URL}/search`}>
           <Button variant="ghost">
             All Courses
           </Button>
-        </Link>
+        </Link> */}
       </div>
       <NavbarRoutes currentProfile={currentProfile} />
     </div>

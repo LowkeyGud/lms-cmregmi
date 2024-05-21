@@ -38,7 +38,7 @@ export const CourseCard = ({
           />
         </div>
         <div className="flex flex-col pt-2">
-          <div className="text-lg md:text-base font-medium group-hover:text-sky-700 transition  dark:group-hover:text-sky-500  line-clamp-2">
+          <div className="text-lg md:text-base font-medium group-hover:text-purple-700 transition  dark:group-hover:text-purple-500  line-clamp-2">
             {title}
           </div>
           <p className="text-xs text-muted-foreground">
