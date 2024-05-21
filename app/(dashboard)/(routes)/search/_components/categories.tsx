@@ -38,7 +38,7 @@ export const Categories = ({
                     key={item._id}
                     label={item.name}
                     icon={iconMap[item.name]}
-                    value={item.id}
+                    value={item._id}
                 />
             ))}
         </div>

@@ -17,3 +17,53 @@ const CategorySchema = new Schema({
 const Category = models.Category || model<ICategory>("Category", CategorySchema);
 
 export default Category;
+
+// Add this manually to the mongodb database
+
+// collection name = categories
+// Insert this object in it as json:
+
+// [
+//   { 
+//       "name": "Computer Science", 
+//       "courses": [], 
+//       "createdAt": { "$date": "2024-05-15T00:00:00.000Z" }, 
+//       "updatedAt": { "$date": "2024-05-15T00:00:00.000Z" } 
+//   },
+//   { 
+//       "name": "Music", 
+//       "courses": [], 
+//       "createdAt": { "$date": "2024-05-15T00:00:00.000Z" }, 
+//       "updatedAt": { "$date": "2024-05-15T00:00:00.000Z" } 
+//   },
+//   { 
+//       "name": "Fitness", 
+//       "courses": [], 
+//       "createdAt": { "$date": "2024-05-15T00:00:00.000Z" }, 
+//       "updatedAt": { "$date": "2024-05-15T00:00:00.000Z" } 
+//   },
+//   { 
+//       "name": "Photography", 
+//       "courses": [], 
+//       "createdAt": { "$date": "2024-05-15T00:00:00.000Z" }, 
+//       "updatedAt": { "$date": "2024-05-15T00:00:00.000Z" } 
+//   },
+//   { 
+//       "name": "Accounting", 
+//       "courses": [], 
+//       "createdAt": { "$date": "2024-05-15T00:00:00.000Z" }, 
+//       "updatedAt": { "$date": "2024-05-15T00:00:00.000Z" } 
+//   },
+//   { 
+//       "name": "Engineering", 
+//       "courses": [], 
+//       "createdAt": { "$date": "2024-05-15T00:00:00.000Z" }, 
+//       "updatedAt": { "$date": "2024-05-15T00:00:00.000Z" } 
+//   },
+//   { 
+//       "name": "Filming", 
+//       "courses": [], 
+//       "createdAt": { "$date": "2024-05-15T00:00:00.000Z" }, 
+//       "updatedAt": { "$date": "2024-05-15T00:00:00.000Z" } 
+//   }
+// ]
