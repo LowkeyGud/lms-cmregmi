@@ -7,7 +7,8 @@ import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { SearchInput } from "./search-input";
 import { SafeProfile } from "@/types/indes";
-import { ModeToggle } from "./ui/toggle-mode";
+import { SliderToggle } from "./ui/toggle-mode";
+import { useState } from "react";
 
 interface NavbarRoutesProps {
   currentProfile?: SafeProfile | null
@@ -18,6 +19,7 @@ export const NavbarRoutes: React.FC<NavbarRoutesProps> = ({
 }) => {
 
   const pathname = usePathname();
+  const [selected, setSelected] = useState("light");
 
   const isTeacherPage = pathname?.startsWith("/teacher");
   const isPlayerPage = pathname?.includes("/chapters");
@@ -31,7 +33,7 @@ export const NavbarRoutes: React.FC<NavbarRoutesProps> = ({
         </div>
       )}
       <div className="flex gap-x-2 ml-auto">
-        <ModeToggle />
+        <SliderToggle />
         {isTeacherPage || isPlayerPage ? (
           <Link href="/">
             <Button variant="destructive">
