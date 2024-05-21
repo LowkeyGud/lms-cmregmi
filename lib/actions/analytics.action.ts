@@ -47,7 +47,7 @@ export const getAnalytics = async (userId: string) => {
       if (!groupedEarnings[courseTitle]) {
         groupedEarnings[courseTitle] = 0;
       }
-      groupedEarnings[courseTitle] += course.price;
+      groupedEarnings[courseTitle] += purchase.price;
     });
 
     // Format data

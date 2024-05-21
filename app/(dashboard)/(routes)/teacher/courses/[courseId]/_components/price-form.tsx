@@ -82,7 +82,7 @@ export default function PriceForm({
                 )}>
                     {initialData.price
                         ? formatPrice(initialData.price)
-                        : "No price set"
+                        : "I want to provide this course for free"
                     }
                 </p>
             )}

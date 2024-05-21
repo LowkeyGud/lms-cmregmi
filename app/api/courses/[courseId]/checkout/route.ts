@@ -77,6 +77,7 @@ export async function POST(
       metadata: {
         courseId: course._id.toString(),
         userId: user.id,
+        price: course.price,
       },
     });
 

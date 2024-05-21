@@ -39,6 +39,7 @@ export async function POST(req: Request) {
   const session = event.data.object as Stripe.Checkout.Session;
   const userId = session?.metadata?.userId;
   const courseId = session?.metadata?.courseId;
+  const price = session?.metadata?.price;
 
   if (event.type === "checkout.session.completed") {
     if (!userId || !courseId) {
@@ -59,8 +60,9 @@ export async function POST(req: Request) {
     }
 
     await Purchase.create({
-      courseId: courseId,
-      userId: userId,
+      courseId,
+      userId,
+      price,
     });
   } else {
     // const logging: Logging = {

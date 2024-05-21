@@ -23,7 +23,7 @@ const CourseSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String },
   imageUrl: { type: String },
-  price: { type: Number },
+  price: { type: Number, default: 0 },
   isPublished: { type: Boolean, default: false },
   categoryId: { type: Schema.Types.ObjectId, ref: "Category" },
   category: { type: Schema.Types.ObjectId, ref: "Category" },
