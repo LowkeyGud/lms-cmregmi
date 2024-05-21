@@ -1,9 +1,9 @@
 import Course from '@/database/course.modal';
+import { connectToDatabase } from '@/lib/mongoose';
 import { auth } from '@clerk/nextjs/server';
-import { redirect, useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { columns } from './_components/columns';
 import { DataTable } from './_components/data-table';
-import { connectToDatabase } from '@/lib/mongoose';
 
 const CoursesPage = async () => {
   const userId = auth();

@@ -1,13 +1,13 @@
 "use client";
-import * as z from "zod";
 import axios from "axios";
-import { Pencil, PlusCircle, ImageIcon, File, Loader2, X } from "lucide-react";
+import { File, Loader2, PlusCircle, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import * as z from "zod";
 
-import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
+import { Button } from "@/components/ui/button";
 
 interface AttachmentFormProps {
     attachments: any;

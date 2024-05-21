@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from 'react';
 import {
     DndContext,
-    closestCenter,
     KeyboardSensor,
     PointerSensor,
+    closestCenter,
     useSensor,
     useSensors,
 } from '@dnd-kit/core';
 import {
-    arrayMove,
     SortableContext,
+    arrayMove,
     sortableKeyboardCoordinates,
     verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
+import { useEffect, useState } from 'react';
 
+import { Badge } from '@/components/ui/badge';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Badge } from '@/components/ui/badge';
-import { Grip, Pencil } from 'lucide-react';
 import axios from 'axios';
+import { Grip, Pencil } from 'lucide-react';
 
 interface ChapterProps {
     itemss: any[];

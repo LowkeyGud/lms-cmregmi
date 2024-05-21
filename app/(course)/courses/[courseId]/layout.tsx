@@ -1,12 +1,11 @@
 
 import { getCourseWithChaptersAndProgress } from "@/lib/actions/course.action";
+import { getProgress } from "@/lib/actions/progress.action";
+import getSafeProfile from "@/lib/actions/safe-profile.action";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { CourseNavbar } from "./_components/course-navbar";
 import { CourseSidebar } from "./_components/course-sidebar";
-import { getProgress } from "@/lib/actions/progress.action";
-import getSafeProfile from "@/lib/actions/safe-profile.action";
-import { ModeToggle } from "@/components/ui/toggle-mode";
 
 const CourseLayout = async ({
     children,

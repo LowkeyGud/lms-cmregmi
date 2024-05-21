@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';   
+import { useEffect, useState } from "react";
 
 // Only when a user stops typing for at least 500 ms then we will search
 // against the database, this prevents us from making too many requests

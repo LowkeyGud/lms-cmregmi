@@ -1,12 +1,12 @@
 import { Banner } from "@/components/banner";
 import { Preview } from "@/components/preview";
+import { Separator } from "@/components/ui/separator";
 import { getChapter } from "@/lib/actions/chapter.action";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { VideoPlayer } from "./_components/video-player";
 import { CourseEnrollButton } from "./_components/course-enroll-button";
-import { Separator } from "@/components/ui/separator";
 import { CourseProgressButton } from "./_components/course-progress-button";
+import { VideoPlayer } from "./_components/video-player";
 
 const ChapterIdPage = async ({
   params

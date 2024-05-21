@@ -1,15 +1,15 @@
 "use client";
 
-import * as z from "zod";
-import axios from "axios";
 import MuxPlayer from "@mux/mux-player-react";
+import axios from "axios";
 import { Pencil, PlusCircle, Video } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import * as z from "zod";
 
-import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
+import { Button } from "@/components/ui/button";
 
 interface ChapterVideoFormProps {
     muxData: any;

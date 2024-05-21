@@ -1,14 +1,15 @@
 "use client";
 
-import * as z from "zod";
-import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import axios from "axios";
 import { Pencil } from "lucide-react";
-import { useState } from "react";
-import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import * as z from "zod";
 
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -17,7 +18,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 interface ChapterTitleFormProps {
   initialData: {
@@ -57,19 +57,19 @@ export const ChapterTitleForm = ({
       toast.success("Chapter title updated");
       toggleEdit();
       router.refresh();
-    } catch (error : any) {
-        if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          toast.error(`Server responded with ${error.response.status} error`);
-        } else if (error.request) {
-          // The request was made but no response was received
-          toast.error("No response received from server");
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          toast.error(`Error: ${error.message}`);
-        }
+    } catch (error: any) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        toast.error(`Server responded with ${error.response.status} error`);
+      } else if (error.request) {
+        // The request was made but no response was received
+        toast.error("No response received from server");
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        toast.error(`Error: ${error.message}`);
       }
+    }
   };
 
   return (

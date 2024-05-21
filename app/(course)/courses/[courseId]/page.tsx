@@ -1,5 +1,4 @@
 import { getCourseWithPublishedChapters } from "@/lib/actions/course.action";
-import console from "console";
 import { redirect } from "next/navigation";
 
 const CourseIdPage = async ({

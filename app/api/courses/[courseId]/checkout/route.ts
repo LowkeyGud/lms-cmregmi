@@ -1,11 +1,11 @@
-import { currentUser } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
-import Stripe from "stripe";
-import { stripe } from "@/lib/stripe";
 import Course from "@/database/course.modal";
 import Purchase from "@/database/purchase.modal";
 import StripeCustomer from "@/database/stripecustomer.modal";
 import { connectToDatabase } from "@/lib/mongoose";
+import { stripe } from "@/lib/stripe";
+import { currentUser } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
+import Stripe from "stripe";
 
 export async function POST(
   req: Request,

@@ -1,11 +1,11 @@
-import { NextResponse } from "next/server";
 import Mux from "@mux/mux-node";
+import { NextResponse } from "next/server";
 
-import { auth } from "@clerk/nextjs/server";
-import Course from "@/database/course.modal";
 import Chapter from "@/database/chapter.modal";
+import Course from "@/database/course.modal";
 import MuxData from "@/database/muxdata.modal";
 import { connectToDatabase } from "@/lib/mongoose";
+import { auth } from "@clerk/nextjs/server";
 
 const { video } = new Mux({
   tokenId: process.env.MUX_TOKEN_ID,

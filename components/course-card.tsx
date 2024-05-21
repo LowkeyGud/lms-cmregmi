@@ -1,6 +1,6 @@
+import { BookOpen } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { BookOpen } from "lucide-react";
 
 import { IconBadge } from "@/components/icon-badge";
 import { formatPrice } from "@/lib/format";

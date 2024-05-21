@@ -1,9 +1,9 @@
 import { CourseProgress } from "@/components/course-progress";
+import Purchase from "@/database/purchase.modal";
+import { connectToDatabase } from "@/lib/mongoose";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import Purchase from "@/database/purchase.modal";
 import { CourseSidebarItem } from "./course-sidebar-item";
-import { connectToDatabase } from "@/lib/mongoose";
 
 interface CourseSidebarProps {
     course: any

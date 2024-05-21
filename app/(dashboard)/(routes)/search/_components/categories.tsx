@@ -1,5 +1,6 @@
 "use client";
 
+import { IconType } from "react-icons";
 import {
     FcEngineering,
     FcFilmReel,
@@ -9,7 +10,6 @@ import {
     FcSalesPerformance,
     FcSportsMode
 } from "react-icons/fc";
-import { IconType } from "react-icons";
 import { CategoryItem } from "./category-item";
 
 

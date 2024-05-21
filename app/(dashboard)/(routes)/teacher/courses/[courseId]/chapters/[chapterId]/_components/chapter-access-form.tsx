@@ -1,28 +1,24 @@
 "use client";
 
-import * as z from "zod";
-import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import axios from "axios";
 import { Pencil } from "lucide-react";
-import { useState } from "react";
-import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import * as z from "zod";
 
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
     Form,
     FormControl,
     FormDescription,
     FormField,
-    FormItem,
-    FormMessage,
+    FormItem
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Textarea } from "@/components/ui/textarea";
-import { Editor } from "@/components/editor";
-import { Preview } from "@/components/preview";
-import { Checkbox } from "@/components/ui/checkbox";
 
 interface ChapterAccessFormProps {
     initialData: any;

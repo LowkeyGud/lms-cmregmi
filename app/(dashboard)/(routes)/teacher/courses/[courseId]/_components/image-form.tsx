@@ -1,15 +1,15 @@
 "use client";
 
-import * as z from "zod";
 import axios from "axios";
-import { Pencil, PlusCircle, ImageIcon, Upload } from "lucide-react";
+import { ImageIcon, Pencil, PlusCircle } from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
+import * as z from "zod";
 
-import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
+import { Button } from "@/components/ui/button";
 
 interface ImageFormProps {
   initialData: any;

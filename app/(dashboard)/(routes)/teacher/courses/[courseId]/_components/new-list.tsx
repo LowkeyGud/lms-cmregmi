@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
-import { Reorder, useDragControls } from "framer-motion"
+import { Reorder } from "framer-motion";
 import { Grip, Pencil } from "lucide-react";
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
 interface NewListProps {
     items: any[];

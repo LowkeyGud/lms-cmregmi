@@ -1,14 +1,14 @@
 "use client";
 
+import { SafeProfile } from "@/types/indes";
 import { UserButton } from "@clerk/nextjs";
-import { usePathname } from "next/navigation";
-import { Button } from "./ui/button";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
-import { SearchInput } from "./search-input";
-import { SafeProfile } from "@/types/indes";
-import { SliderToggle } from "./ui/toggle-mode";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { SearchInput } from "./search-input";
+import { Button } from "./ui/button";
+import { SliderToggle } from "./ui/toggle-mode";
 
 interface NavbarRoutesProps {
   currentProfile?: SafeProfile | null

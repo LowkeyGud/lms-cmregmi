@@ -1,8 +1,8 @@
 import { NavbarRoutes } from "@/components/navbar-routes";
-import { SafeProfile } from "@/types/indes";
-import { CourseMobileSidebar } from "./course-mobile-sidebar";
 import { Button } from "@/components/ui/button";
+import { SafeProfile } from "@/types/indes";
 import Link from "next/link";
+import { CourseMobileSidebar } from "./course-mobile-sidebar";
 
 interface CourseNavbarProps {
   course: any;

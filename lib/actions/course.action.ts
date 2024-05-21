@@ -1,12 +1,12 @@
 "use server";
 
+import Category from "@/database/category.modal";
 import Chapter from "@/database/chapter.modal";
 import Course from "@/database/course.modal";
-import UserProgress from "@/database/userprogress.modal";
-import { connectToDatabase } from "../mongoose";
-import { CourseWithProgressWithCategory, GetCourses } from "@/types/indes";
-import Category from "@/database/category.modal";
 import Purchase from "@/database/purchase.modal";
+import UserProgress from "@/database/userprogress.modal";
+import { CourseWithProgressWithCategory, GetCourses } from "@/types/indes";
+import { connectToDatabase } from "../mongoose";
 import { getProgress } from "./progress.action";
 
 export const getCourses = async ({

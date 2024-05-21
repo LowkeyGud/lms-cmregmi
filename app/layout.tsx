@@ -1,10 +1,10 @@
+import { ConfettiProvider } from "@/components/providers/confetti-provider";
+import { ToastProvider } from "@/components/providers/taoster-provider";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
-import { ToastProvider } from "@/components/providers/taoster-provider";
-import { ConfettiProvider } from "@/components/providers/confetti-provider";
-import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,12 +24,7 @@ export default function RootLayout({
         <body className={inter.className}>
           <ConfettiProvider />
           <ToastProvider />
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-          // disableTransitionOnChange
-          >
+          <ThemeProvider>
             {children}
           </ThemeProvider>
         </body>

@@ -13,6 +13,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import {
   Table,
   TableBody,
@@ -21,10 +23,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import  Link  from "next/link"
 import { PlusCircle } from "lucide-react"
+import Link from "next/link"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -37,7 +37,7 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
 
   const [sorting, setSorting] = React.useState<SortingState>([])
-  const [ columnFilters, setColumnFilters ] = React.useState<ColumnFiltersState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 
 
 
@@ -69,10 +69,10 @@ export function DataTable<TData, TValue>({
         />
         <Link href="/teacher/create">
           <Button variant="outline" size="sm">
-            <PlusCircle className="h-4 w-4 mr-2"/>New Course
+            <PlusCircle className="h-4 w-4 mr-2" />New Course
           </Button>
         </Link>
-      </div>      
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>

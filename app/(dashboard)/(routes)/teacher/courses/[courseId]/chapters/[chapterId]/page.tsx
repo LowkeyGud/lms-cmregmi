@@ -1,24 +1,24 @@
-import React from "react";
 import { redirect } from "next/navigation";
+import React from "react";
 
-import Link from "next/link";
-import { ArrowLeft, Eye, LayoutDashboard, Video } from "lucide-react";
 import { IconBadge } from "@/components/icon-badge";
+import { ArrowLeft, Eye, LayoutDashboard, Video } from "lucide-react";
+import Link from "next/link";
 // import { ChapterDescriptionForm } from "./_components/chapter-description-form";
 // import { ChapterAccessForm } from "./_components/chapter-access-form";
 // import { ChapterVideoForm } from "./_components/chapter-video-form";
 // import { Banner } from "@/components/banner";
 // import { ChapterActions } from "./_components/chatper-actions";
-import { ChapterTitleForm } from "./_components/chapter-title-form";
-import { auth } from "@clerk/nextjs/server";
-import Chapter from "@/database/chapter.modal";
-import { ChapterDescriptionForm } from "./_components/chapter-description-form";
-import { ChapterAccessForm } from "./_components/chapter-access-form";
-import { ChapterVideoForm } from "./_components/chapter-video-form";
-import MuxData from "@/database/muxdata.modal";
 import { Banner } from "@/components/banner";
-import { ChapterActions } from "./_components/chapter-actions";
+import Chapter from "@/database/chapter.modal";
+import MuxData from "@/database/muxdata.modal";
 import { connectToDatabase } from "@/lib/mongoose";
+import { auth } from "@clerk/nextjs/server";
+import { ChapterAccessForm } from "./_components/chapter-access-form";
+import { ChapterActions } from "./_components/chapter-actions";
+import { ChapterDescriptionForm } from "./_components/chapter-description-form";
+import { ChapterTitleForm } from "./_components/chapter-title-form";
+import { ChapterVideoForm } from "./_components/chapter-video-form";
 
 interface ChapterIdPageProps {
     params: {

@@ -6,9 +6,9 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
-    req: Request,
-    { params }: { params: { courseId: string; chapterId: string } }
-  ) {
+  req: Request,
+  { params }: { params: { courseId: string; chapterId: string } }
+) {
   try {
     const { userId } = auth();
 
@@ -23,10 +23,19 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const chapter = await Chapter.findOne({ _id: params.chapterId, courseId: params.courseId });
+    const chapter = await Chapter.findOne({
+      _id: params.chapterId,
+      courseId: params.courseId,
+    });
     const muxData = await MuxData.findOne({ chapterId: params.chapterId });
 
-    if (!chapter || !muxData || !chapter.title || !chapter.description || !chapter.videoUrl) {
+    if (
+      !chapter ||
+      !muxData ||
+      !chapter.title ||
+      !chapter.description ||
+      !chapter.videoUrl
+    ) {
       return new NextResponse("Missing required fields", { status: 400 });
     }
 

@@ -1,16 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import {
     DragDropContext,
-    Droppable,
     Draggable,
     DropResult,
+    Droppable,
 } from "@hello-pangea/dnd";
 import { Grip, Pencil } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
-import { Banner } from "@/components/banner";
 
 interface ChaptersListProps {
     items: any[];

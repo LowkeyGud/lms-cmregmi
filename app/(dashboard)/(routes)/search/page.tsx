@@ -1,11 +1,11 @@
+import { CoursesList } from "@/components/courses-list";
+import { SearchInput } from "@/components/search-input";
+import Category from "@/database/category.modal";
+import { getCourses } from "@/lib/actions/course.action";
+import { connectToDatabase } from "@/lib/mongoose";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { Categories } from "./_components/categories";
-import Category from "@/database/category.modal";
-import { auth } from "@clerk/nextjs/server";
-import { connectToDatabase } from "@/lib/mongoose";
-import { SearchInput } from "@/components/search-input";
-import { CoursesList } from "@/components/courses-list";
-import { getCourses } from "@/lib/actions/course.action";
 
 // import { SearchInput } from "@/components/search-input";
 // import { getCourses } from "@/actions/get-courses";

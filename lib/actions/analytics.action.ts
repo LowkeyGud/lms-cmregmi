@@ -2,7 +2,6 @@
 
 import Course from "@/database/course.modal";
 import Purchase from "@/database/purchase.modal";
-import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "../mongoose";
 
 // Utility function to group purchases by course and calculate total earnings

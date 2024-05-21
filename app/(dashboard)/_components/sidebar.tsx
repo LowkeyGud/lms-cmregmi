@@ -1,6 +1,6 @@
 "use client";
 
-import { Logo } from "./logo"
+import { Logo } from "./logo";
 import { SidebarRoutes } from "./sidebar-routes";
 
 export const Sidebar = () => {

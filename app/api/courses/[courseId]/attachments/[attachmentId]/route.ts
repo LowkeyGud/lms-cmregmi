@@ -2,7 +2,6 @@ import Attachment from "@/database/attachment.modal";
 import Course from "@/database/course.modal";
 import { connectToDatabase } from "@/lib/mongoose";
 import { auth } from "@clerk/nextjs/server";
-import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 
 export async function DELETE(

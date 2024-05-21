@@ -36,7 +36,6 @@ export async function POST(
       courseId,
     });
 
-
     // Save the attachment
     const savedAttachment = await attachment.save();
 

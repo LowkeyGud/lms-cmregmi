@@ -5,14 +5,10 @@ import {
     BarChart,
     ResponsiveContainer,
     XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    Legend,
-} from "recharts"
+    YAxis
+} from "recharts";
 
 import { Card } from "@/components/ui/card";
-import { X } from "lucide-react";
 
 interface ChartProps {
     data: {

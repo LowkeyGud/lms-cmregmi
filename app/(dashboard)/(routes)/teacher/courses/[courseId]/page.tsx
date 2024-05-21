@@ -1,27 +1,26 @@
 import { TitleForm } from "@/app/(dashboard)/_components/title-form";
+import { Banner } from "@/components/banner";
 import { IconBadge } from "@/components/icon-badge";
+import Attachment from "@/database/attachment.modal";
+import Category from "@/database/category.modal";
+import Chapter from "@/database/chapter.modal";
+import Course from "@/database/course.modal";
 import { connectToDatabase } from "@/lib/mongoose";
 import { auth } from "@clerk/nextjs/server";
 import {
   CircleDollarSign,
+  File,
   LayoutDashboard,
   ListChecks,
-  File,
 } from "lucide-react";
 import { redirect } from "next/navigation";
-import React from "react";
+import { Actions } from "./_components/actions";
+import { AttachmentForm } from "./_components/attachment-form";
+import { CategoryForm } from "./_components/category-form";
+import ChaptersForm from "./_components/chapter-form";
 import { DescriptionForm } from "./_components/description-form";
 import { ImageForm } from "./_components/image-form";
-import Category from "@/database/category.modal";
-import { CategoryForm } from "./_components/category-form";
 import PriceForm from "./_components/price-form";
-import { AttachmentForm } from "./_components/attachment-form";
-import Attachment from "@/database/attachment.modal";
-import Course from "@/database/course.modal";
-import ChaptersForm from "./_components/chapter-form";
-import Chapter from "@/database/chapter.modal";
-import { Actions } from "./_components/actions";
-import { Banner } from "@/components/banner";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
 
