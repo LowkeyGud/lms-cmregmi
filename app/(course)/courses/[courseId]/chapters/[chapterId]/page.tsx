@@ -1,7 +1,7 @@
 import { Banner } from "@/components/banner";
 import { Preview } from "@/components/preview";
 import { Separator } from "@/components/ui/separator";
-import { getChapter } from "@/lib/actions/chapter.action";
+import { getChapter, getChapterNameById } from "@/lib/actions/chapter.action";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { CourseEnrollButton } from "./_components/course-enroll-button";
@@ -114,6 +114,17 @@ const ChapterIdPage = async ({
       </div>
     </div>
   );
+}
+
+export async function generateMetadata({ params }: { params: { chapterId: string } }) {
+
+  const chapter = await getChapterNameById({ chapterId: params.chapterId });
+
+  if (!chapter) return;
+
+  return {
+    title: `${chapter.title}`,
+  };
 }
 
 export default ChapterIdPage;

@@ -3,9 +3,18 @@ import { getCourseWithChaptersAndProgress } from "@/lib/actions/course.action";
 import { getProgress } from "@/lib/actions/progress.action";
 import getSafeProfile from "@/lib/actions/safe-profile.action";
 import { auth } from "@clerk/nextjs/server";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { CourseNavbar } from "./_components/course-navbar";
 import { CourseSidebar } from "./_components/course-sidebar";
+
+export const metadata: Metadata = {
+    title: "LMS CR",
+    description: "Modern LMS Solution",
+    icons: {
+        icon: "/icons/newLogo.svg"
+    }
+};
 
 const CourseLayout = async ({
     children,

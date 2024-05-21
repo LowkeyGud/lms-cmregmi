@@ -8,7 +8,7 @@ const bannerVariants = cva(
   {
     variants: {
       variant: {
-        warning: "bg-transparent text-primary dark:text-primary",
+        warning: "bg-transparent text-primary dark:text-red-500",
         success: "text-purple-700 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-100",
       }
     },

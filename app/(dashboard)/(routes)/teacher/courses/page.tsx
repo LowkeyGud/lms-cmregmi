@@ -1,9 +1,18 @@
 import Course from '@/database/course.modal';
 import { connectToDatabase } from '@/lib/mongoose';
 import { auth } from '@clerk/nextjs/server';
+import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { columns } from './_components/columns';
 import { DataTable } from './_components/data-table';
+
+export const metadata: Metadata = {
+  title: "LMS CR | My Courses",
+  description: "Modern LMS Solution",
+  icons: {
+    icon: "/icons/newLogo.svg"
+  }
+};
 
 const CoursesPage = async () => {
   const userId = auth();

@@ -4,13 +4,17 @@ import Category from "@/database/category.modal";
 import { getCourses } from "@/lib/actions/course.action";
 import { connectToDatabase } from "@/lib/mongoose";
 import { auth } from "@clerk/nextjs/server";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Categories } from "./_components/categories";
 
-// import { SearchInput } from "@/components/search-input";
-// import { getCourses } from "@/actions/get-courses";
-// import { CoursesList } from "@/components/courses-list";
-
+export const metadata: Metadata = {
+  title: "LMS CR | All Courses",
+  description: "Modern LMS Solution",
+  icons: {
+    icon: "/icons/newLogo.svg"
+  }
+};
 
 interface SearchPageProps {
   searchParams: {

@@ -9,6 +9,16 @@ import { CourseWithProgressWithCategory, GetCourses } from "@/types/indes";
 import { connectToDatabase } from "../mongoose";
 import { getProgress } from "./progress.action";
 
+export const getCourseNameById = async ({ courseId }: { courseId: string }) => {
+  try {
+    connectToDatabase();
+    const courseName = await Course.findById(courseId);
+    return courseName;
+  } catch (error) {
+    console.log("COURSE METADATA FETCHING ERROR ", error);
+  }
+};
+
 export const getCourses = async ({
   userId,
   title,

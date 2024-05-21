@@ -7,6 +7,20 @@ import UserProgress from "@/database/userprogress.modal";
 import { GetChapterProps } from "@/types/indes";
 import { connectToDatabase } from "../mongoose";
 
+export const getChapterNameById = async ({
+  chapterId,
+}: {
+  chapterId: string;
+}) => {
+  try {
+    connectToDatabase();
+    const chapterName = await Chapter.findById(chapterId);
+    return chapterName;
+  } catch (error) {
+    console.log("CHAPTER METADATA FETCHING ERROR ", error);
+  }
+};
+
 export const getChapter = async ({
   userId,
   courseId,

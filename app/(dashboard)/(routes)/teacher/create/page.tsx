@@ -13,11 +13,20 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { Metadata } from "next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
+
+export const metadata: Metadata = {
+  title: "LMS CR | Create New Course",
+  description: "Modern LMS Solution",
+  icons: {
+    icon: "/icons/newLogo.svg"
+  }
+};
 
 const formSchema = z.object({
   title: z.string().min(1, {

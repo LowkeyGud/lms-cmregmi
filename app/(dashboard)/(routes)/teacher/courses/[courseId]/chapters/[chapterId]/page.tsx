@@ -12,6 +12,7 @@ import Link from "next/link";
 import { Banner } from "@/components/banner";
 import Chapter from "@/database/chapter.modal";
 import MuxData from "@/database/muxdata.modal";
+import { getChapterNameById } from "@/lib/actions/chapter.action";
 import { connectToDatabase } from "@/lib/mongoose";
 import { auth } from "@clerk/nextjs/server";
 import { ChapterAccessForm } from "./_components/chapter-access-form";
@@ -139,6 +140,17 @@ const ChapterIdPage: React.FC<ChapterIdPageProps> = async ({ params }) => {
             </div>
         </>
     );
+}
+
+export async function generateMetadata({ params }: { params: { chapterId: string } }) {
+
+    const chapter = await getChapterNameById({ chapterId: params.chapterId });
+
+    if (!chapter) return;
+
+    return {
+        title: `${chapter.title}`,
+    };
 }
 
 export default ChapterIdPage;

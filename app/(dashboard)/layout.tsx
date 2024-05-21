@@ -1,6 +1,15 @@
+import { Metadata } from "next";
 import React from "react";
 import { Navbar } from "./_components/navbar";
 import { Sidebar } from "./_components/sidebar";
+
+export const metadata: Metadata = {
+  title: "LMS CR | Dashboard",
+  description: "Modern LMS Solution",
+  icons: {
+    icon: "/icons/newLogo.svg"
+  }
+};
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   return (

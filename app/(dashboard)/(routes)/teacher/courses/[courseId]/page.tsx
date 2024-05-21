@@ -5,6 +5,7 @@ import Attachment from "@/database/attachment.modal";
 import Category from "@/database/category.modal";
 import Chapter from "@/database/chapter.modal";
 import Course from "@/database/course.modal";
+import { getCourseNameById } from "@/lib/actions/course.action";
 import { connectToDatabase } from "@/lib/mongoose";
 import { auth } from "@clerk/nextjs/server";
 import {
@@ -146,5 +147,16 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
       </div>
     </>);
 };
+
+export async function generateMetadata({ params }: { params: { courseId: string } }) {
+
+  const course = await getCourseNameById({ courseId: params.courseId });
+
+  if (!course) return;
+
+  return {
+    title: `${course.title}`,
+  };
+}
 
 export default CourseIdPage;
