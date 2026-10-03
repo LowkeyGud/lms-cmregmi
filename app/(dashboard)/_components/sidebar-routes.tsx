@@ -8,7 +8,7 @@ const STUDENTRoutes = [
     {
         icon: Layout,
         label: "Dashboard",
-        href: "/",
+        href: "/dashboard",
     },
     {
         icon: Compass,

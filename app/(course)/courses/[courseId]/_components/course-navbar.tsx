@@ -25,7 +25,7 @@ export const CourseNavbar = ({
         progressCount={progressCount}
       />
       <div className="flex gap-3">
-        <Link href="/">
+        <Link href="/dashboard">
           <Button variant="outline">
             Dashboard
           </Button>

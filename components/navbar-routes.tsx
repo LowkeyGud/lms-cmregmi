@@ -35,7 +35,7 @@ export const NavbarRoutes: React.FC<NavbarRoutesProps> = ({
       <div className="flex gap-x-2 ml-auto">
         <SliderToggle />
         {isTeacherPage || isPlayerPage ? (
-          <Link href="/">
+          <Link href="/dashboard">
             <Button variant="destructive">
               <LogOut className="h-4 w-4 mr-2" />
               Exit
