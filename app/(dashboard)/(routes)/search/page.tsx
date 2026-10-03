@@ -11,9 +11,6 @@ import { Categories } from "./_components/categories";
 export const metadata: Metadata = {
   title: "LMS CR | All Courses",
   description: "Modern LMS Solution",
-  icons: {
-    icon: "/icons/newLogo.svg"
-  }
 };
 
 interface SearchPageProps {

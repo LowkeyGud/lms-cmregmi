@@ -9,9 +9,6 @@ import { DataTable } from './_components/data-table';
 export const metadata: Metadata = {
   title: "LMS CR | My Courses",
   description: "Modern LMS Solution",
-  icons: {
-    icon: "/icons/newLogo.svg"
-  }
 };
 
 const CoursesPage = async () => {

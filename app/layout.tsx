@@ -11,9 +11,6 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "LMS CR",
   description: "Modern LMS Solution",
-  icons: {
-    icon: "/icons/newLogo.svg"
-  }
 };
 
 export default function RootLayout({

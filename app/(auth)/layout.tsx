@@ -3,9 +3,6 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
     title: "LMS CR",
     description: "Modern LMS Solution",
-    icons: {
-        icon: "/icons/newLogo.svg"
-    }
 };
 const AuthLayout = ({
     children

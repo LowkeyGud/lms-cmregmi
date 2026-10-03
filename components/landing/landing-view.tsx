@@ -73,7 +73,7 @@ export const LandingView = () => {
         <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/icons/newLogo.svg"
+              src="/logo.png"
               alt="LMS CR logo"
               width={32}
               height={32}
@@ -347,7 +347,7 @@ export const LandingView = () => {
         <footer className="mt-10 flex flex-col items-center justify-between gap-4 border-t pt-8 text-sm text-muted-foreground md:flex-row">
           <div className="flex items-center gap-2">
             <Image
-              src="/icons/newLogo.svg"
+              src="/logo.png"
               alt="LMS CR logo"
               width={24}
               height={24}

@@ -4,9 +4,6 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
     title: "LMS CR | Create New Course",
     description: "Modern LMS Solution",
-    icons: {
-        icon: "/icons/newLogo.svg"
-    }
 };
 const CreateLayout = async ({ children }: { children: React.ReactNode }) => {
     return <>{children}</>

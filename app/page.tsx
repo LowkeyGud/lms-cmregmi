@@ -7,9 +7,6 @@ export const metadata: Metadata = {
   title: "LMS CR | Modern LMS Solution",
   description:
     "Create, sell, and watch courses — instructor studio, Mux video, Stripe enrollment, and progress tracking in one place.",
-  icons: {
-    icon: "/icons/newLogo.svg",
-  },
 };
 
 export default function LandingPage() {

@@ -11,9 +11,6 @@ import { CourseSidebar } from "./_components/course-sidebar";
 export const metadata: Metadata = {
     title: "LMS CR",
     description: "Modern LMS Solution",
-    icons: {
-        icon: "/icons/newLogo.svg"
-    }
 };
 
 const CourseLayout = async ({
