@@ -1,0 +1,90 @@
+%%{init: {"theme": "neutral"}}%%
+erDiagram
+  CATEGORY ||--o{ COURSE : "has many"
+  COURSE ||--o{ CHAPTER : "has many"
+  COURSE ||--o{ ATTACHMENT : "has many"
+  COURSE ||--o{ PURCHASE : "enrolled via"
+  CHAPTER ||--|| MUXDATA : "plays via"
+  CHAPTER ||--o{ USERPROGRESS : "tracked by"
+
+  CATEGORY {
+    ObjectId _id PK
+    string name
+    ObjectId courses "FK array"
+  }
+
+  COURSE {
+    ObjectId _id PK
+    string userId "Clerk owner"
+    string title
+    string description
+    string imageUrl
+    number price
+    boolean isPublished
+    ObjectId categoryId FK
+    ObjectId attachments "FK array"
+    ObjectId chapters "FK array"
+    ObjectId purchases "FK array"
+  }
+
+  CHAPTER {
+    ObjectId _id PK
+    string title
+    string description
+    string videoUrl
+    number position
+    boolean isPublished
+    boolean isFree
+    ObjectId muxData FK
+    ObjectId courseId FK
+    ObjectId userProgress "FK array"
+  }
+
+  ATTACHMENT {
+    ObjectId _id PK
+    string name
+    string url
+    ObjectId courseId FK
+  }
+
+  PURCHASE {
+    ObjectId _id PK
+    string userId "Clerk buyer"
+    ObjectId courseId FK
+    number price
+  }
+
+  USERPROGRESS {
+    ObjectId _id PK
+    string userId "Clerk learner"
+    ObjectId chapterId FK
+    boolean isCompleted
+  }
+
+  MUXDATA {
+    ObjectId _id PK
+    string assetId
+    string playbackId
+    ObjectId chapterId FK "unique"
+  }
+
+  PROFILE {
+    ObjectId _id PK
+    string userId UK "Clerk id"
+    string name
+    string email
+    string role "STUDENT TEACHER ADMIN"
+  }
+
+  STRIPECUSTOMER {
+    ObjectId _id PK
+    string userId UK "Clerk id"
+    string stripeCustomerId UK
+  }
+
+  LOGGING {
+    ObjectId _id PK
+    string url
+    string method
+    number statusCode
+  }

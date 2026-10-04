@@ -1,0 +1,28 @@
+%%{init: {"theme": "default"}}%%
+sequenceDiagram
+  participant L as Learner
+  participant App as Next.js App
+  participant CO as Checkout API<br/>courses/[courseId]/checkout
+  participant S as Stripe
+  participant WH as Webhook API<br/>webhook/route.ts
+  participant DB as MongoDB
+
+  L->>App: Open course player
+  App->>DB: Read course + chapters + userProgress
+  DB-->>App: Chapters, locked states
+  App-->>L: Player with locked paid chapters
+  L->>CO: Enroll (POST checkout)
+  CO->>DB: Lookup StripeCustomer by userId
+  CO->>S: Create Checkout Session
+  S-->>CO: Session URL
+  CO-->>L: Redirect to Stripe Checkout
+  L->>S: Pay
+  S->>WH: checkout.session.completed event
+  WH->>S: Verify webhook signature
+  WH->>DB: Upsert StripeCustomer + Purchase
+  DB-->>WH: Reconciled to one purchase
+  WH-->>S: 200 OK
+  L->>App: Return, reopen player
+  App->>DB: Read Purchase + UserProgress
+  DB-->>App: Enrolled, progress rows
+  App-->>L: Unlocked chapters + progress bar

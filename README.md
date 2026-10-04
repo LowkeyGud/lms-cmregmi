@@ -1,205 +1,130 @@
 # LMS CR
 
-A full-stack Learning Management System (LMS) built with Next.js App Router.
+> Full-stack course marketplace: instructor studio, Mux video, Stripe enrollment, progress gating, and sales analytics.
 
-It supports two primary workflows:
-- **Learners** can browse courses, enroll, watch chapter videos, and track completion progress.
-- **Instructors** can create courses, manage chapters/content, publish or unpublish courses, and review sales analytics.
+**Stack:** Next.js 14.2.3 · React 18 · Clerk 5 · Mongoose/MongoDB · Stripe · Mux · UploadThing · Node 24
 
-## Project Overview
+![LMS CR landing page](docs/screenshots/lms-home.png)
 
-This repository contains a monolithic Next.js app with:
-- UI routes under `app/` for authentication, learner dashboard/search/player, and teacher course management.
-- API routes under `app/api/` for course/chapter CRUD, progress, uploads, checkout, and Stripe webhook handling.
-- MongoDB (Mongoose) models in `database/`.
-- Server-side data actions in `lib/actions/`.
+| Fact | Evidence |
+| --- | --- |
+| Paid loop end-to-end | Course CRUD → Stripe Checkout → webhook → `purchase`/`stripecustomer` → locked-chapter gating |
+| 9 Mongoose models | course, chapter, category, attachment, purchase, userprogress, muxdata, profile, stripecustomer |
+| Video + files + money wired | `@mux/*`, `uploadthing`, `stripe` deps with dedicated routes and asset tracking |
+| 46 commits with a DnD war story | `Tried different drag and drop` → `Fixed: Dnd Reorder Issue` |
+
+## The Problem
+
+Selling courses without a marketplace means solving authoring, video hosting, file attachments, payments, fulfillment, progress tracking, and analytics as one system — where a double-charged webhook or an unlocked paid chapter destroys trust instantly.
+
+## The Solution
+
+A monolithic App Router app: API routes own mutations, Mongoose owns persistence, Stripe/Mux/UploadThing own money/media/files. Learners browse, enroll via Checkout, and watch gated chapters; instructors author with drag-reorderable chapters and Mux uploads; webhooks reconcile purchases exactly once.
+
+```mermaid
+graph TD
+  Browse[search + catalog + dashboard<br/>progress counts] --> Player[course player<br/>Mux video + attachments]
+  Player --> Progress[userprogress writes<br/>completion + progress bar]
+  Browse --> Pay[Stripe Checkout]
+  Pay --> Hook[webhook route<br/>purchase + stripecustomer]
+  Hook --> Gate[locked-chapter gating]
+  Studio[teacher studio<br/>CRUD + DnD reorder + publish] --> Mux[Mux assets tracked in muxdata]
+  Studio --> Analytics[analytics + confetti milestones]
+  Auth[Clerk + middleware<br/>webhook public] --> Browse
+  Auth --> Studio
+```
 
 ## Key Features
 
-### Learner-facing
-- Clerk sign-in/sign-up flows (`/sign-in`, `/sign-up`)
-- Dashboard with in-progress and completed course counts (`/`)
-- Course browsing with text and category filtering (`/search`)
-- Course player experience (`/courses/[courseId]/chapters/[chapterId]`)
-- Paid enrollment via Stripe Checkout
-- Chapter completion tracking and progress bar
-- Locked chapter handling for non-purchased paid content
+**Course player with gating.** Mux video, attachments, completion toggles, progress bars; unpaid chapters render locked. Why it matters: gating is the product promise of a paid course.
 
-### Instructor-facing
-- Create new courses (`/teacher/create`)
-- Manage owned courses in a table (`/teacher/courses`)
-- Course setup page with:
-  - title, description, cover image, category, price
-  - chapter list and drag-drop reordering
-  - attachment uploads
-  - publish/unpublish actions
-- Chapter editor with title/description/access/video/publish controls
-- Revenue and sales analytics page (`/teacher/analytics`)
+**Stripe enrollment.** Checkout sessions fulfilled by webhook into `purchase`/`stripecustomer` records. Why it matters: money must reconcile exactly once under at-least-once delivery.
 
-## Routes / Pages
+**Instructor studio.** Course table (TanStack), chapter CRUD with drag reorder, Mux uploads, publish/unpublish. Why it matters: authoring speed decides catalog growth.
 
-### Auth
-- `/sign-in/[[...sign-in]]`
-- `/sign-up/[[...sign-up]]`
+**Search and analytics.** Category search, purchase aggregation, dashboard counts. Why it matters: learners find courses; instructors measure them.
 
-### Dashboard & discovery
-- `/` – learner dashboard
-- `/search` – published course listing and filtering
+## Key Engineering Decisions
 
-### Teacher area
-- `/teacher/create`
-- `/teacher/courses`
-- `/teacher/courses/[courseId]`
-- `/teacher/courses/[courseId]/chapters/[chapterId]`
-- `/teacher/analytics`
+**Problem → Constraint → Decision → Tradeoff → Result**
 
-### Course consumption
-- `/courses/[courseId]` (redirects to first published chapter)
-- `/courses/[courseId]/chapters/[chapterId]`
+1. **Webhooks deliver at-least-once.** Constraint: naive handlers double-fulfill on retries. Decision: dedicated checkout + webhook routes with `stripecustomer` mapping so fulfillment reconciles to one purchase. Tradeoff: an extra customer-mapping model to maintain. Result: reliable enrollment — routes plus model are the evidence.
 
-## API Surface (App Router)
+2. **Upload URLs are ephemeral.** Constraint: playback breaks if only transient URLs are kept. Decision: Mux assets tracked durably in `muxdata` alongside UploadThing uploads. Tradeoff: asset lifecycle bookkeeping per chapter. Result: stable playback references.
 
-Under `app/api`:
-- `POST /api/courses`
-- `PATCH, DELETE /api/courses/[courseId]`
-- `PATCH /api/courses/[courseId]/publish`
-- `PATCH /api/courses/[courseId]/unpublish`
-- `POST /api/courses/[courseId]/checkout`
-- `POST /api/courses/[courseId]/attachments`
-- `DELETE /api/courses/[courseId]/attachments/[attachmentId]`
-- `POST /api/courses/[courseId]/chapters`
-- `PUT /api/courses/[courseId]/chapters/reorder`
-- `PATCH, DELETE /api/courses/[courseId]/chapters/[chapterId]`
-- `PATCH /api/courses/[courseId]/chapters/[chapterId]/publish`
-- `PATCH /api/courses/[courseId]/chapters/[chapterId]/unpublish`
-- `PUT /api/courses/[courseId]/chapters/[chapterId]/progress`
-- `GET, POST /api/uploadthing`
-- `POST /api/webhook` (Stripe webhook)
+3. **Chapter ordering UX.** Constraint: one DnD library couldn't cover every list cleanly. Decision: iterated (`@dnd-kit` + `@hello-pangea/dnd`) until the reorder issue was fixed (`86eb9b2`). Tradeoff: two DnD dependencies in one codebase. Result: working drag reorder in the studio.
 
-## Tech Stack
+## Iteration Story
 
-### Core
-- **Next.js** `14.2.3` (App Router)
-- **React** `18`
-- **TypeScript** `^5`
-- **Node.js** `24.x` (from `package.json` engines)
+Forty-six commits: `create-next-app` → Clerk auth → database modals → chapter-edit forms with Mux → DnD attempts and fix → Stripe with full functionality → metadata/layout/theme passes → engine pin → docs PR. Money and media landed as full subsystems, not stubs; the DnD fix sequence shows a real struggle resolved, not a first-try success.
 
-### Auth & user management
-- **Clerk** (`@clerk/nextjs`)
+## User Experience
 
-### Database / persistence
-- **MongoDB** + **Mongoose**
-- Models: `Profile`, `Course`, `Chapter`, `Category`, `Attachment`, `Purchase`, `UserProgress`, `MuxData`, `StripeCustomer`
+Learners sign in to a dashboard of in-progress/completed counts, search the catalog, open a course, and watch — toggling completion as progress advances, hitting locked states until Checkout completes. Instructors switch to the studio: create, fill chapters with video and attachments, reorder by drag, publish, and review analytics. Confetti marks milestones.
 
-### Payments
-- **Stripe** (`stripe` + custom webhook handling)
+## Results & Evidence
 
-### Media & uploads
-- **Mux** (`@mux/mux-node`, `@mux/mux-player-react`) for chapter video assets/playback
-- **UploadThing** (`uploadthing`, `@uploadthing/react`) for file/image/video uploads
+**Verifiable:** checkout/webhook routes, `stripecustomer` reconciliation, `muxdata` tracking, and the DnD fix all committed; 13-key `.env.example` documents the full integration surface.
 
-### UI / styling
-- **Tailwind CSS** + `tailwindcss-animate`
-- **Radix UI** primitives
-- **shadcn/ui** style configuration (`components.json`)
-- **Recharts** for analytics charts
-- **react-hook-form + zod** for form handling/validation
-- **Zustand** for confetti state
+**Not claimed:** no test suite or revenue/usage metrics are recorded.
 
-## Authentication & Authorization Notes
+## Technical Details
 
-- Clerk middleware is configured in `middleware.ts`.
-- App pages and API handlers also perform server-side auth checks (`auth()` / `currentUser()`).
-- Teacher operations are guarded mainly by **course ownership checks** (`course.userId === auth user`) in API routes.
-- `Profile.role` supports `STUDENT | TEACHER | ADMIN` in the schema.
+| Area | Detail |
+| --- | --- |
+| Framework | Next.js 14.2.3, React 18, Tailwind 3.4, Node 24 engines |
+| Auth | `@clerk/nextjs`, `middleware.ts` (webhook public) |
+| Data | `mongoose` + `mongodb`, 9 models, `connectToDatabase()` (collections on first write) |
+| Money/media/files | `stripe`, `@mux/mux-node` + player, `uploadthing` |
+| Forms/state | `react-hook-form` + `zod`, `zustand`, TanStack Table, `recharts` |
+| Secrets | `.env.example` (13 keys: Clerk ×6, `MONGODB_URL`, UploadThing ×2, Mux ×2, app URL, Stripe ×2). Nothing committed. |
 
-## Environment Variables
+## Setup
 
-Copy `.env.example` to `.env.local` and set all required values:
+1. **Prerequisites:** Node 24, npm, MongoDB (Atlas or local), Clerk, Stripe, Mux, UploadThing accounts; Stripe CLI for webhook testing.
+2. **Clone and install:**
+   ```bash
+   git clone https://github.com/LowkeyGud/lms-cmregmi.git
+   cd lms-cmregmi
+   npm install
+   ```
+3. **Environment:** copy `.env.example` to `.env` and fill all 13 keys.
+4. **Webhooks (local):** `stripe listen --forward-to localhost:3000/api/webhook`.
+5. **Run:**
+   ```bash
+   npm run dev
+   ```
+   Production: `npm run build` then `npm start`, with the production webhook URL registered.
+6. **Verify:** create a course as instructor, enroll via test Checkout, confirm purchase record and chapter unlocking, toggle completion and watch progress advance.
+7. **Common issues:** webhook signature failure → CLI forwarding misconfigured; Mux playback blank → token pair mismatch; locked chapters after payment → purchase reconciliation check.
 
-```env
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
-CLERK_SECRET_KEY=
+No GitHub Actions workflow is committed in this repo.
 
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=
-NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL=
-NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL=
+## Lessons / Takeaways
 
-MONGODB_URL=
+- At-least-once webhooks demand reconciliation design up front — the customer-mapping model was load-bearing, not boilerplate.
+- Dual DnD libraries were pragmatic, not elegant; the reorder fix mattered more than dependency purity.
+- Next step is fulfillment tests around the webhook handler — the highest-risk untested code in the repo.
 
-UPLOADTHING_SECRET=
-UPLOADTHING_APP_ID=
+## Links
 
-MUX_TOKEN_ID=
-MUX_TOKEN_SECRET=
+- Repository: `https://github.com/LowkeyGud/lms-cmregmi`
+- Live Demo: `https://lms-cmregmi.vercel.app`
 
-NEXT_PUBLIC_APP_URL=
+## Diagrams
 
-STRIPE_API_KEY=
-STRIPE_WEBHOOK_SECRET=
-```
+Generated from the codebase with the mermaid-skill workflow (validate via Kroki → export SVG → vision self-check). Sources live in `docs/diagrams/` — edit the `.mmd`, re-render, review. SVG is the committed format: lossless zoom, small files, no dark-canvas bugs.
 
-## Getting Started
+**Entity-relationship** (`docs/diagrams/er.mmd` — all 9 models + logging, refs from `database/*.modal.ts`):
 
-### Prerequisites
-- Node.js `24.x` (as declared in `package.json`)
-- npm
-- MongoDB instance
-- Clerk, Stripe, UploadThing, and Mux accounts/credentials
+![LMS entity-relationship diagram](docs/diagrams/er.svg)
 
-### Install
+**Enrollment sequence** (`docs/diagrams/enrollment-sequence.mmd` — Checkout → Stripe → webhook → gating):
 
-```bash
-npm install
-```
+![Stripe enrollment sequence diagram](docs/diagrams/enrollment-sequence.svg)
 
-### Run locally
+## Screenshots
 
-```bash
-npm run dev
-```
+Captured from the live deployment:
 
-Open `http://localhost:3000`.
-
-## Available Scripts
-
-From `package.json`:
-
-- `npm run dev` – start development server
-- `npm run build` – create production build
-- `npm run start` – run production server
-- `npm run lint` – run Next.js ESLint checks
-- `npm run type` – currently maps to `module` (as defined in repository)
-
-## Linting / Testing / Build
-
-- Linting: `npm run lint`
-- Build: `npm run build`
-- Tests: **No automated test script is currently defined in `package.json`.**
-
-## Deployment
-
-No deployment configuration (for example, Dockerfile or CI deployment workflow) is included in this repository.
-
-Recommended deployment approach:
-1. Set all environment variables in your hosting provider.
-2. Run `npm run build`.
-3. Start with `npm run start` (or provider-equivalent Next.js runtime command).
-4. Configure Stripe webhook delivery to `POST /api/webhook` on your deployed domain.
-
-## Data & Content Notes
-
-- Categories are stored in MongoDB (`Category` model).
-- `database/category.modal.ts` includes sample category seed objects in comments for manual insertion.
-- Course chapter videos are processed through Mux when chapter `videoUrl` is updated.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make focused changes
-4. Run lint/build checks
-5. Open a pull request
-
----
+![LMS CR landing page](docs/screenshots/lms-home.png)
